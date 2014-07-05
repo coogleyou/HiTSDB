@@ -1,0 +1,24 @@
+{
+  "name": "HiTSDB",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.7",
+    "ejs": "*",
+    "line-reader": "*",
+    "async": "*",
+    "mongoose": "*",
+    "underscore": "*",
+    "request": "*",
+    "eventproxy": "*",
+    "validator": "*",
+    "moment": "*",
+    "mocha": "*",
+    "moment-range": "~1",
+    "csv": "0.3.0",
+    "iconv-lite": "*"
+  }
+}
