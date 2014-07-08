@@ -25,7 +25,7 @@ exports.suggest = function(req, res, next){
     var path = '/api/suggest',
         uri = tsd_host + path;
     request({uri: uri, qs: req.query}, function(err, response, body){
-        if(response.statusCode == 200){
+        if(!err && response.statusCode == 200){
             res.send(body);
         }
     });
@@ -35,7 +35,7 @@ exports.getAggregators = function(req, res, next){
     var path = '/api/aggregators',
         uri = tsd_host + path;
     request(uri, function(err, response, body){
-        if(response.statusCode == 200){
+        if(!err && response.statusCode == 200){
             res.send(body);
         }
     });
@@ -45,6 +45,7 @@ exports.metricQuery = function(req, res, next){
     var query_obj = req.body.query_obj,
         start = validator.trim(query_obj.start),
         end = validator.trim(query_obj.end);
+/*
     if(!start || start && !validator.isDate(start) || end && !validator.isDate(end)){
         res.json({message: "出错了"});
         return;
@@ -53,10 +54,11 @@ exports.metricQuery = function(req, res, next){
         res.json({message: "出错了"});
         return;
     }
+*/
 
     //判断时间跨度，指定downsample，start end转为unix时间戳
-    start= moment(start);
-    end = end ? moment(end) : null;
+    start= moment(Number(start)*1000);
+    end = end ? moment(Number(end)*1000) : null;
 
     var end_moment = end ? end : moment(),
         downsmp_interval;
@@ -72,12 +74,14 @@ exports.metricQuery = function(req, res, next){
         downsmp_interval = '1m';
     }
     for(var i = 0; i < query_obj.queries.length; i++){
-        var downsmp_agg = query_obj.queries[i].downsample.split('-')[1];
+        var downsmp_agg = query_obj.queries[i].aggregator;
+        if(query_obj.queries[i].downsample){
+            downsmp_agg = query_obj.queries[i].downsample.split('-')[1];
+        }
         query_obj.queries[i].downsample = downsmp_interval + '-' + downsmp_agg;
     }
     query_obj.start = start.unix();
     query_obj.end = end ? end.unix() : null;
-    query_obj['arrays'] = true;
 
     var path = '/api/query',
         uri = tsd_host + path;

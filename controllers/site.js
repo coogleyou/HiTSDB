@@ -5,5 +5,9 @@ var config = require('../config').config;
 var EventProxy = require('eventproxy');
 
 exports.index = function(req, res, next){
-    res.render('index');
+    if(req.user){
+        res.render('index', { user: req.user });
+    }else{
+        res.redirect('/login');
+    }
 }

@@ -13,5 +13,9 @@ mongoose.connect(config.db, function (err) {
 
 // models
 require('./risk_event');
+require('./user');
 
 exports.RiskEvent = mongoose.model('RiskEvent');
+exports.User = mongoose.model('User');
+
+

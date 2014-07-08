@@ -19,6 +19,9 @@
     "mocha": "*",
     "moment-range": "~1",
     "csv": "0.3.0",
-    "iconv-lite": "*"
+    "iconv-lite": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "MD5": "*"
   }
 }

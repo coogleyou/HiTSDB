@@ -27,17 +27,37 @@ function getOptions(){
         xAxis: {
             labels: {
                 rotation: 0
+            },
+            dateTimeLabelFormats: {
+                second: '%Y-%m-%d<br/>%H:%M:%S',
+                minute: '%Y-%m-%d<br/>%H:%M',
+                hour: '%Y-%m-%d<br/>%H:%M',
+                day: '%Y<br/>%m-%d',
+                week: '%Y<br/>%m-%d',
+                month: '%Y-%m',
+                year: '%Y'
             }
         },
         yAxis: {
             title: {
                 text: ''
             },
+            opposite: false,
             lineWidth: 2
         },
         tooltip: {
-            //valueSuffix: '',
-            pointFormat: '{series.name}: <b>{point.percentage:.4f}%</b>'
+            useHTML: true,
+            dateTimeLabelFormats: {
+                //millisecond: "%A, %b %e, %H:%M:%S.%L",
+                second: "%A, %m-%d, %H:%M:%S",
+                minute: "%A, %m-%d, %H:%M",
+                hour: "%A, %m-%d, %H:%M",
+                day: "%A, %Y-%m-%d",
+                week: "%A, %Y-%m-%d",
+                month: "%Y-%m",
+                year: "%Y"
+            },
+            xDateFormat: "%A, %Y-%m-%d, %H:%M"
         },
         legend: {
             layout: 'vertical',
@@ -64,6 +84,35 @@ function getOptions(){
     };
 }
 
+function getStockOptions(){
+    var options = getOptions();
+    options['rangeSelector'] = {
+        buttons: [{
+            type: 'hour',
+            count: 12,
+            text: '12h'
+        }, {
+            type: 'day',
+            count: 2,
+            text: '2d'
+        }, {
+            type: 'month',
+            count: 1,
+            text: '1m'
+        }, {
+            type: 'year',
+            count: 1,
+            text: '1y'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false, // it supports only days
+        selected : 4 // all
+    };
+    return options;
+}
+
 $(function(){
     Highcharts.setOptions({
         global: {
@@ -84,7 +133,7 @@ $(function(){
             drillUpText: "返回 {series.name}",
             resetZoom: "重置",
             resetZoomTitle: "重置缩放比例1:1",
-            weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+            weekdays: ["日", "一", "二", "三", "四", "五", "六"]
         },
         credits: {
             enabled: false
@@ -93,12 +142,12 @@ $(function(){
             //shared: true,
             dateTimeLabelFormats: {
                 //millisecond: "%A, %b %e, %H:%M:%S.%L",
-                second: "%A, %m %e, %H:%M:%S",
-                minute: "%A, %m %e, %H:%M",
-                hour: "%A, %m %e, %H:%M",
-                day: "%A, %Y %m %e",
-                week: "%A, %Y %m %e",
-                month: "%Y %m",
+                second: "%A, %m-%e, %H:%M:%S",
+                minute: "%A, %m-%e, %H:%M",
+                hour: "%A, %m-%e, %H:%M",
+                day: "%A, %Y-%m-%e",
+                week: "%A, %Y-%m-%e",
+                month: "%Y-%m",
                 year: "%Y"
             }
         }
