@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="63d9bce4-e904-4327-adca-fcececfb751e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Lxy.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/middlewares/auth.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/login.ejs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/user.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/user.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/proxy/user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/index.js" afterPath="$PROJECT_DIR$/models/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proxy/index.js" afterPath="$PROJECT_DIR$/proxy/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/query_tsdb.js" afterPath="$PROJECT_DIR$/controllers/query_tsdb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/showcharts.js" afterPath="$PROJECT_DIR$/public/javascripts/showcharts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/site.js" afterPath="$PROJECT_DIR$/controllers/site.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/user/setting.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/user.js" afterPath="$PROJECT_DIR$/models/user.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proxy/user.js" afterPath="$PROJECT_DIR$/proxy/user.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/controllers/user.js" afterPath="$PROJECT_DIR$/controllers/user.js" />
     </list>
     <ignored path="HiTSDB.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,48 +29,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="query_tsdb.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/controllers/query_tsdb.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="0" selection-start="826" selection-end="826" vertical-scroll-proportion="-0.4736" vertical-offset="854" max-vertical-offset="2070">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="show.ejs" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/risk_event/show.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="457" column="30" selection-start="19108" selection-end="19108" vertical-scroll-proportion="-98.92593" vertical-offset="5555" max-vertical-offset="8514">
-              <folding>
-                <marker date="1404442272660" expanded="true" signature="129:294" placeholder="{...}" />
-                <marker date="1404442272660" expanded="true" signature="353:455" placeholder="{...}" />
-                <marker date="1404442272660" expanded="true" signature="461:4617" placeholder="{...}" />
-                <marker date="1404442272660" expanded="true" signature="2516:2619" placeholder="{...}" />
-                <marker date="1404442272660" expanded="true" signature="2625:2742" placeholder="{...}" />
-                <marker date="1404442272660" expanded="true" signature="3284:3383" placeholder="{...}" />
-                <marker date="1404442272660" expanded="true" signature="3389:3504" placeholder="{...}" />
-                <marker date="1404442272660" expanded="false" signature="9330:9340" placeholder="..." />
-                <marker date="1404442272660" expanded="false" signature="13033:13053" placeholder="..." />
-                <marker date="1404442272660" expanded="false" signature="15999:16019" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.ejs" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/login.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="612">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="showcharts.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/showcharts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="10" selection-start="1843" selection-end="1843" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3582">
+            <state line="7" column="46" selection-start="246" selection-end="246" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="3582">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="risk_event.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/risk_event.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="147" column="29" selection-start="5836" selection-end="5836" vertical-scroll-proportion="0.0" vertical-offset="2439" max-vertical-offset="10332">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="risk_event.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/proxy/risk_event.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="111" column="10" selection-start="3167" selection-end="3167" vertical-scroll-proportion="0.0" vertical-offset="1759" max-vertical-offset="2142">
               <folding />
             </state>
           </provider>
@@ -90,10 +59,26 @@
       <file leaf-file-name="query.ejs" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/tsdb/query.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="109" column="43" selection-start="5037" selection-end="5037" vertical-scroll-proportion="-2.148148" vertical-offset="1904" max-vertical-offset="5814">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="7" column="11" selection-start="228" selection-end="228" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="5814">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="38" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="954">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controllers/user.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="22" selection-start="774" selection-end="774" vertical-scroll-proportion="0.8064" vertical-offset="0" max-vertical-offset="918">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -121,22 +106,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/controllers/User.js" />
-        <option value="$PROJECT_DIR$/controllers/site.js" />
-        <option value="$PROJECT_DIR$/proxy/user.js" />
-        <option value="$PROJECT_DIR$/models/user.js" />
         <option value="$PROJECT_DIR$/views/login.ejs" />
         <option value="$PROJECT_DIR$/models/index.js" />
         <option value="$PROJECT_DIR$/config.js" />
         <option value="$PROJECT_DIR$/middlewares/auth.js" />
-        <option value="$PROJECT_DIR$/controllers/user.js" />
-        <option value="$PROJECT_DIR$/views/nheader.ejs" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/routes.js" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/controllers/query_tsdb.js" />
         <option value="$PROJECT_DIR$/public/javascripts/showcharts.js" />
         <option value="$PROJECT_DIR$/views/tsdb/query.ejs" />
+        <option value="$PROJECT_DIR$/views/user/setting.js" />
+        <option value="$PROJECT_DIR$/routes.js" />
+        <option value="$PROJECT_DIR$/views/nheader.ejs" />
+        <option value="$PROJECT_DIR$/views/user/setting.ejs" />
+        <option value="$PROJECT_DIR$/models/user.js" />
+        <option value="$PROJECT_DIR$/proxy/user.js" />
+        <option value="$PROJECT_DIR$/controllers/user.js" />
       </list>
     </option>
   </component>
@@ -201,6 +186,42 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HiTSDB" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HiTSDB" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HiTSDB" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HiTSDB" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tsdb" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -378,6 +399,11 @@
       <created>1404561880630</created>
       <updated>1404561880630</updated>
     </task>
+    <task id="LOCAL-00001" summary="add passport support and tsdb query">
+      <created>1404815566417</created>
+      <updated>1404815566417</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -401,16 +427,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1305" height="784" extended-state="6" />
+    <frame x="-8" y="-8" width="1305" height="784" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297546" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24165341" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24515128" sideWeight="0.6702454" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33895704" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24515128" sideWeight="0.506135" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49386504" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38803682" sideWeight="0.5003879" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -419,6 +444,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297546" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -428,142 +454,114 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="add passport support and tsdb query" />
+    <option name="LAST_COMMIT_MESSAGE" value="add passport support and tsdb query" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <option name="time" value="17" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/proxy/user.js">
+    <entry file="file://$PROJECT_DIR$/views/showcharts.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="9" selection-start="502" selection-end="502" vertical-scroll-proportion="0.88767123" vertical-offset="0" max-vertical-offset="468">
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="437" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/user.js">
+    <entry file="file://$PROJECT_DIR$/views/tsdb/query.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="3" selection-start="432" selection-end="432" vertical-scroll-proportion="0.2109589" vertical-offset="211" max-vertical-offset="576">
+        <state line="7" column="11" selection-start="228" selection-end="228" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="5814">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/nheader.ejs">
+    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="57" selection-start="3329" selection-end="3329" vertical-scroll-proportion="-8.666667" vertical-offset="1242" max-vertical-offset="1782">
-          <folding>
-            <marker date="1404788441830" expanded="true" signature="-1:-1" placeholder="{...}" />
-          </folding>
-        </state>
+        <state line="289" column="0" selection-start="6450" selection-end="6450" vertical-scroll-proportion="0.33159268" vertical-offset="5075" max-vertical-offset="5868" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.js">
+    <entry file="file://$PROJECT_DIR$/views/user/setting.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="35" selection-start="493" selection-end="493" vertical-scroll-proportion="0.5263158" vertical-offset="176" max-vertical-offset="594">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="43" selection-start="1518" selection-end="1518" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="864">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="22" selection-start="131" selection-end="131" vertical-scroll-proportion="-4.6666665" vertical-offset="0" max-vertical-offset="234">
+        <state line="15" column="22" selection-start="749" selection-end="749" vertical-scroll-proportion="0.56396866" vertical-offset="54" max-vertical-offset="540">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/middlewares/auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="26" selection-start="328" selection-end="328" vertical-scroll-proportion="0.41189933" vertical-offset="0" max-vertical-offset="882">
+        <state line="9" column="33" selection-start="285" selection-end="285" vertical-scroll-proportion="0.3707572" vertical-offset="20" max-vertical-offset="882">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/user.js">
+    <entry file="file://$PROJECT_DIR$/proxy/risk_event.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="1" selection-start="261" selection-end="261" vertical-scroll-proportion="0.38215104" vertical-offset="13" max-vertical-offset="666">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="31" selection-start="1859" selection-end="1859" vertical-scroll-proportion="0.7414188" vertical-offset="828" max-vertical-offset="1602">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/showcharts.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="437">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/risk_event.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="8" selection-start="560" selection-end="560" vertical-scroll-proportion="-9.021227" vertical-offset="4221" max-vertical-offset="10332">
+        <state line="111" column="10" selection-start="3167" selection-end="3167" vertical-scroll-proportion="0.0" vertical-offset="1759" max-vertical-offset="2142">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/risk_event/show.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="457" column="30" selection-start="19108" selection-end="19108" vertical-scroll-proportion="-98.92593" vertical-offset="5555" max-vertical-offset="8514">
-          <folding>
-            <marker date="1404442272660" expanded="true" signature="129:294" placeholder="{...}" />
-            <marker date="1404442272660" expanded="true" signature="353:455" placeholder="{...}" />
-            <marker date="1404442272660" expanded="true" signature="461:4617" placeholder="{...}" />
-            <marker date="1404442272660" expanded="true" signature="2516:2619" placeholder="{...}" />
-            <marker date="1404442272660" expanded="true" signature="2625:2742" placeholder="{...}" />
-            <marker date="1404442272660" expanded="true" signature="3284:3383" placeholder="{...}" />
-            <marker date="1404442272660" expanded="true" signature="3389:3504" placeholder="{...}" />
-            <marker date="1404442272660" expanded="false" signature="9330:9340" placeholder="..." />
-            <marker date="1404442272660" expanded="false" signature="13033:13053" placeholder="..." />
-            <marker date="1404442272660" expanded="false" signature="15999:16019" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/showcharts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="10" selection-start="1843" selection-end="1843" vertical-scroll-proportion="0.0" vertical-offset="874" max-vertical-offset="3582">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/tsdb/query.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="43" selection-start="5037" selection-end="5037" vertical-scroll-proportion="-2.148148" vertical-offset="1904" max-vertical-offset="5814">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/login.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="612">
-          <folding />
-        </state>
+        <state line="457" column="30" selection-start="19108" selection-end="19108" vertical-scroll-proportion="7.787172" vertical-offset="5555" max-vertical-offset="8514" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/query_tsdb.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="826" selection-end="826" vertical-scroll-proportion="-0.4736" vertical-offset="854" max-vertical-offset="2070">
+        <state line="56" column="2" selection-start="1536" selection-end="1536" vertical-scroll-proportion="0.40208876" vertical-offset="854" max-vertical-offset="2070" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/nheader.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="0" selection-start="1862" selection-end="1862" vertical-scroll-proportion="0.7619048" vertical-offset="558" max-vertical-offset="1782" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/login.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="32" selection-start="759" selection-end="759" vertical-scroll-proportion="0.8095238" vertical-offset="0" max-vertical-offset="612" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/showcharts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="46" selection-start="246" selection-end="246" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3582">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="46" selection-start="699" selection-end="699" vertical-scroll-proportion="0.46666667" vertical-offset="279" max-vertical-offset="684" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="38" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0" vertical-offset="96" max-vertical-offset="954">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/risk_event.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="147" column="29" selection-start="5836" selection-end="5836" vertical-scroll-proportion="0.0" vertical-offset="2439" max-vertical-offset="10332">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="8" selection-start="544" selection-end="544" vertical-scroll-proportion="0.37692308" vertical-offset="316" max-vertical-offset="576">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="22" selection-start="774" selection-end="774" vertical-scroll-proportion="0.8064" vertical-offset="0" max-vertical-offset="918">
           <folding />
         </state>
       </provider>

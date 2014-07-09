@@ -20,3 +20,7 @@ exports.getUserByUsername = function(username, callback){
 exports.getUserById = function (id, callback) {
     User.findOne({_id: id}, callback);
 };
+
+exports.updateUserByUsername = function(username, password, callback){
+    User.findOneAndUpdate({username: username}, {password: MD5(password)}, callback);
+}

@@ -1,0 +1,25 @@
+<%- include ../nheader %>
+<div class="container-fluid ">
+    <form class="form-horizontal" method="post">
+        <fieldset>
+            <legend>修改密码</legend>
+            <div class="control-group">
+                <label class="control-label" for="username">用户名</label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="username" disabled name="username" value="<%= user.username %>">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">新密码</label>
+                <div class="controls">
+                    <input type="password" class="input-xlarge" id="password" name="password">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">保存</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<%- include ../nfooter %>

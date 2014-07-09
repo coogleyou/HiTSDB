@@ -29,3 +29,17 @@ exports.logout = function(req, res, next){
     res.redirect('/');
 }
 
+exports.showSetting = function(req, res, next){
+    res.render('user/setting');
+}
+
+exports.setting = function(req, res, next){
+    var password = req.body.password;
+    User.updateUserByUsername(req.user.username, password, function(err, user){
+        if(err){
+            return next(err);
+        }
+        req.logout();
+        res.redirect('/');
+    });
+}

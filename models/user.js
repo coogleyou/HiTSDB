@@ -22,6 +22,12 @@ UserSchema.pre('save', function(next) {
     user.password = MD5(user.password);
 });
 
+UserSchema.pre('save', function(next) {
+    var user = this;
+    if(!user.isModified('password')) return next();
+    user.password = MD5(user.password);
+});
+
 UserSchema.index({username: 1});
 
 mongoose.model('User', UserSchema);
