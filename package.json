@@ -22,6 +22,7 @@
     "iconv-lite": "*",
     "passport": "*",
     "passport-local": "*",
-    "MD5": "*"
+    "MD5": "*",
+      "uuid": "*"
   }
 }

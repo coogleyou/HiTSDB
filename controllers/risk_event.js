@@ -16,7 +16,7 @@ var _ = require('underscore');
 var EventProxy = require('eventproxy');
 
 function getAllBuss(){
-    return ['POS', 'ONLINE', 'NONCARD', 'epos', 'DAIKOU', 'WTJS', 'CORE', 'SYS'];
+    return ['POS', 'ONLINE', 'NONCARD', 'epos', 'DAIKOU', 'WTJS', 'CORE', 'YJZF', 'SYS'];
 }
 
 exports.show = function(req, res, next){
