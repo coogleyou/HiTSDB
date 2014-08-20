@@ -1,0 +1,18 @@
+Index: views/risk_event/show.ejs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- views/risk_event/show.ejs	(revision )
++++ views/risk_event/show.ejs	(revision )
+@@ -194,7 +194,8 @@
+         "epos": "航旅epos",
+         "DAIKOU": "代扣",
+         "WTJS": "委托结算",
+-        "CORE": "核心平台"
++        "CORE": "核心平台",
++        "YJZF": "一键支付",
+     }
+ 
+     $(".change-plot-rotation").click(function(){
+\ No newline at end of file

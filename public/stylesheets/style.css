@@ -1,0 +1,61 @@
+/*
+    None fixed topbar
+*/
+.topbar {
+    position: relative;
+}
+
+/*
+    Footer
+*/
+html,body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+}
+
+#container-wrap {
+    padding-top: 10px;
+    padding-bottom: 50px;
+}
+
+#footer {
+    clear: both;
+    text-align: center;
+
+    height: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    position: relative;
+    margin-top: -50px;
+}
+
+/* Chevrons */
+.nav-sidebar .icon-chevron-right {
+    float: right;
+    margin-top: 2px;
+    margin-right: -6px;
+    opacity: .25;
+}
+.nav-sidebar > li > a:hover {
+    background-color: #f5f5f5;
+}
+.nav-sidebar a:hover .icon-chevron-right {
+    opacity: .5;
+}
+.nav-sidebar .active .icon-chevron-right,
+.nav-sidebar .active a:hover .icon-chevron-right {
+    background-image: url(../bootstrap/img/glyphicons-halflings-white.png);
+    opacity: 1;
+}
+.nav-sidebar.affix {
+    top: 40px;
+}
+.nav-sidebar.affix-bottom {
+    position: absolute;
+    top: auto;
+    bottom: 270px;
+}

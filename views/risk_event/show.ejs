@@ -1,0 +1,487 @@
+<%- include ../nheader %>
+<%- include ../querysidebar %>
+
+<div class="span9">
+    <% if (typeof(error) !== 'undefined' && error) { %>
+    <div class="alert alert-error">
+        <a class="close" data-dismiss="alert" href="#">&times;</a>
+        <strong><%= error %></strong>
+    </div>
+    <% } %>
+    <% if (typeof(success) !== 'undefined' && success) { %>
+    <div class="alert alert-success">
+        <strong><%= success %></strong>
+    </div>
+    <% } else { %>
+    <a href="/risk_event/add" class="btn" >添加事件</a>&nbsp;&nbsp;<a href="/risk_event/list" class="btn" >事件列表</a>
+    <form method="post" class="form-horizontal" action="/risk_event/add">
+        <div class="control-group">
+            <label class="control-label" for="bussiness">bussiness：</label>
+            <div class="controls" id="bussiness">
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="POS"> 线下POS
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="ONLINE"> 在线支付
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="NONCARD"> 非银行卡
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="epos"> 航旅epos
+                </label><br/>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="DAIKOU"> 代扣
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="WTJS"> 委托结算
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="CORE"> 核心平台
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="YJZF"> 一键支付
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="SYS"> 系统运维
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="ALL"> 整体业务
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label " for="dtp_input1">from：</label>
+            <div class="controls input-append date form_datetime " data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                <% if (typeof(from) !== 'undefined') { %>
+                <input size="16" type="text" value="<%= from %>" name="from">
+                <% } else { %>
+                <input size="16" type="text" value="" name="from" placeholder="yyyy-mm-dd">
+                <% } %>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <input type="hidden" id="dtp_input1" value="" /><br/>
+        </div>
+        <div class="control-group">
+            <label class="control-label " for="dtp_input2">to：</label>
+            <div class="controls input-append date form_datetime " data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2">
+                <% if (typeof(to) !== 'undefined') { %>
+                <input size="16" type="text" value="<%= to %>" name="to">
+                <% } else { %>
+                <input size="16" type="text" value="" name="to" placeholder="yyyy-mm-dd">
+                <% } %>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <input type="hidden" id="dtp_input2" value="" /><br/>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label " for="unit" >单位：</label>
+            <div class="controls span1">
+                <select name="unit" id="unit" class="span1">
+                    <option value="years">years</option>
+                    <option value="months">months</option>
+                    <option value="weeks">weeks</option>
+                    <!--<option value="days">days</option>-->
+                </select>
+            </div>
+        </div>
+        <a type="submit" href="#" class="btn show_availability">查询</a>&nbsp;&nbsp;
+        <a type="submit" href="#" class="btn show_availability_datetime">datetime&nbsp;view</a>&nbsp;&nbsp;
+        <a type="submit" href="#" class="btn show_availability_4w">最近一月</a><br/>
+    </form>
+    <!--
+    <button class="btn">pie</button>
+    <button class="btn">area</button>
+    <button class="btn">bar</button>
+    <button class="btn">scatter</button>-->
+    <% } %>
+    <div id="chart_container"></div>
+    <!-- Button to trigger modal -->
+    <div class="hide box" id="chart_container_model">
+        <div class="box-title">
+            <h4></h4>
+            <div class="box-tools">
+                <i class="icon-remove icon-white remove-chart"></i>
+            </div>
+        </div>
+        <div class="box-content">
+            <button class="btn btn_chart_type" value="line">折线图</button>
+            <button class="btn btn_chart_type" value="spline">曲线图</button>
+            <button class="btn btn_chart_type" value="column">柱状图</button>
+            <button class="btn btn_chart_type" value="areaspline">曲线区域图</button>
+            <a role="button" class="btn change_chart">修改图表</a>
+            <label class="checkbox inline">
+                <input type="checkbox" class="change-plot-visible" > 点值
+            </label>
+            <label class="checkbox inline hide-text">
+                <input type="checkbox" class="hide change-plot-rotation" > 点值倾斜
+            </label>
+            <label class="checkbox inline">
+                <input type="checkbox" class="convert2table" > 表格
+            </label>
+            <div id="container" style="min-width:700px;height:400px"></div>
+            <div></div>
+        </div>
+    </div>
+</div><!--/span-->
+
+<!-- Modal -->
+<div id="alter_chart" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="alter_chart_label" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="alter_chart_label">图表属性</h3>
+    </div>
+    <div class="modal-body">
+        标题：<input type="text" name="title" /><br/>
+        副标题：<input type="text" name="subtitle" /><br/>
+        x轴倾斜：<input type="text" name="label_rotation" placeholder="倾斜角度"/><br/>
+        y轴刻度：<input type="text" class="input-small" name="max" placeholder="max">
+                <input type="text" class="input-small" name="min" placeholder="min">
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+        <button class="btn btn-primary alter_chart_save">修改</button>
+    </div>
+</div>
+<%- include ../nfooter %>
+<script type="text/javascript">
+$(function(){
+    $('.form_datetime').datetimepicker({
+        language:  "zh-CN",
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        viewSelect: 2,
+        forceParse: 0,
+        showMeridian: 0 //上午下午
+    });
+    //修改图表类型
+    $(".btn_chart_type").click(function(){
+        var type = $(this).val();
+        var hchart = $(this).siblings("#container").highcharts();
+        for(var i = 0; i < hchart.series.length; i++) {
+            if(type == "step"){
+                //阶梯图需要的type为line
+                hchart.series[i].update({
+                    type: "line",
+                    step: true
+                });
+            } else{
+                hchart.series[i].update({
+                    type: type,
+                    step: false
+                });
+            }
+        }
+    });
+
+    $(".remove-chart").click(function(){
+        $(this).parent().parent().parent().remove();
+    });
+
+    var bussiness_name = {
+        "POS": "线下POS",
+        "ALL": "整体业务",
+        "SYS": "系统运维",
+        "ONLINE": "在线支付",
+        "NONCARD": "非银行卡",
+        "epos": "航旅epos",
+        "DAIKOU": "代扣",
+        "WTJS": "委托结算",
+        "CORE": "核心平台",
+        "YJZF": "一键支付",
+    }
+
+    $(".change-plot-rotation").click(function(){
+        var stat = $(this).attr('checked');
+        var hchart = $(this).parent().siblings("#container").highcharts();
+        if(stat == "checked"){
+            for(var i = 0; i < hchart.series.length; i++) {
+                hchart.series[i].update({
+                    dataLabels: {
+                        rotation: -90,
+                        verticalAlign: "bottom",
+                        y: 30,
+                        x: 3
+                    }
+                });
+            }
+        }else{
+            for(var i = 0; i < hchart.series.length; i++) {
+                hchart.series[i].update({
+                    dataLabels: {
+                        rotation: 0,
+                        verticalAlign: null,
+                        y: 6,
+                        x: 0
+                    }
+                });
+            }
+
+        }
+    });
+
+    $('.convert2table').click(function(){
+        var stat = $(this).attr('checked');
+        var hchart = $(this).parent().siblings("#container").highcharts();
+        if(stat == "checked"){
+            var table = $('<table class="table table-condensed table-bordered table-striped" style="width: 88%"><thead></thead><tbody></tbody></table>');
+            $(this).parent().parent().children().last().append(table);
+            var table_head = hchart.xAxis[0].categories;
+            var thead_tr = $('<tr></tr>');
+            thead_tr.append($('<th class="span1">bussiness</th>'));
+            for(var i = 0; i < table_head.length; i++){
+                var th = $('<th>' + table_head[i] + '</th>');
+                thead_tr.append(th);
+            }
+            table.children('thead').append(thead_tr);
+            var seriess = new Array();
+            for(var i = 0; i < hchart.series.length; i++){
+                seriess.push(hchart.series[i]);
+            }
+            for(var i = 0; i < seriess.length; i++){
+                var tbody_tr = $('<tr></tr>');
+                tbody_tr.append($('<td>' + seriess[i].name + '</td>'));
+                for(var j = 0; j < seriess[i].data.length; j++){
+                    tbody_tr.append($('<td>' + seriess[i].data[j].y + '</td>'));
+                }
+                table.children('tbody').append(tbody_tr);
+            }
+
+        }else{
+            $(this).parent().parent().children().last().children().remove();
+        }
+    });
+
+    $('.change-plot-visible').click(function(){
+        var stat = $(this).attr('checked');
+        var hchart = $(this).parent().siblings("#container").highcharts();
+        if(stat == "checked"){
+            $(this).parent().next().removeClass("hide-text");
+            $(this).parent().next().children().removeClass("hide");
+            for(var i = 0; i < hchart.series.length; i++) {
+                hchart.series[i].update({
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function(){
+                            return this.y == 100.000 ? null : this.y;
+                        }
+                    }
+                });
+            }
+        } else{
+            $(this).parent().next().addClass("hide-text");
+            $(this).parent().next().children().addClass("hide");
+            for(var i = 0; i < hchart.series.length; i++){
+                hchart.series[i].update({
+                    dataLabels: {
+                        enabled: false,
+                        formatter: null,
+                        rotation: 0,
+                        verticalAlign: null,
+                        y: 6,
+                        x: 0
+                    }
+                });
+            }
+        }
+    });
+
+    //显示统计图表
+    $(".show_availability").click(function(){
+        var querydata = $("form").serializeObject();
+        $.ajax({
+            url : "/risk_event/show",
+            type : "POST",
+            cache : false,
+            dataType : "json",
+            data : querydata,
+            error : function(jqXHR, textStatus, errorThrown) {
+                alert('error ' + textStatus + " " + errorThrown);
+            },
+            success : function(data) {
+                if(data.message){
+                    alert(data.message);
+                    return;
+                }
+                var chartid = null;
+                for(var i = 0; ; i++){
+                    chartid = 'chart_container_sub' + i;
+                    if(!($('#'+chartid).length > 0))
+                      break;
+                }
+                var sub_chart = $('#chart_container_model').clone(true).removeClass('hide')
+                        .attr('id', chartid)
+                        .appendTo('#chart_container');
+                var options = getOptions();
+                options.xAxis['categories'] = data.categories;
+                options.yAxis.title.text = "可用性百分比(%)";
+                options.tooltip.pointFormat = '<span style="color:{series.color}">\u25CF</span> ' +
+                        '{series.name}: <b>{point.y: .3f}%</b><br/>';
+
+                var unit = querydata.unit == "years" ? "年" : querydata.unit == "months" ? "月" : "周";
+                var chart_title = "业务系统可用性(%)";
+                options.subtitle.text = querydata.from + "至" + querydata.to + "  (" + unit + ")";
+                for(var i = 0; i < data.series.length; i++){
+                    var name = data.series[i].name;
+                    data.series[i].name = bussiness_name[name];
+                }
+                if(data.series.length == 1){
+                    chart_title = data.series[0].name + chart_title;
+                }else if(data.series.length > 1){
+                    chart_title = data.series[0].name + "等" + data.series.length + chart_title;
+                }
+                options.title.text = chart_title;
+                sub_chart.find('h4').html(chart_title);
+
+                options.series = data.series;
+                var charts = sub_chart.find('#container').highcharts(options, function(chart){
+                    InitialYaxisLabels(chart);
+                    $.each(chart.series, function(i, series){
+                        if(series.data.length < 9){
+                            series.update({
+                                dataLabels: {
+                                    enabled: true
+                                }
+                            });
+                        }
+                    });
+                });
+
+            }
+        });
+    });
+
+    //最近四周的可用性
+    $(".show_availability_4w").click(function(){
+        $("#unit").children("option").removeAttr("selected");
+        $("#unit").children("option[value='weeks']").attr('selected', '');
+        var from = new Date();
+        from.setMonth(new Date().getMonth() - 1);
+        while(from.getDay() != 1){
+            from.setDate(from.getDate() + 1);
+        }
+        $("input[name='from']").val(from.Format("yyyy-MM-dd"));
+        $("input[name='to']").val(new Date().Format("yyyy-MM-dd"));
+        $(".show_availability").click();
+    });
+
+    //显示时间轴样式的图表
+    $(".show_availability_datetime").click(function(){
+        var querydata = {};
+        querydata = $("form").serializeObject();
+        $.ajax({
+            url : "/risk_event/show/datetime",
+            type : "POST",
+            cache : false,
+            dataType : "json",
+            data : querydata,
+            error : function(jqXHR, textStatus, errorThrown) {
+                alert('error ' + textStatus + " " + errorThrown);
+            },
+            success : function(data) {
+                if(data.message){
+                    alert(data.message);
+                    return;
+                }
+                var unit = data.unit;
+                var chartid = null;
+                for(var i = 0; ; i++){
+                    chartid = 'chart_container_sub' + i;
+                    if(!($('#'+chartid).length > 0))
+                        break;
+                }
+                var sub_chart = $('#chart_container_model').clone(true).removeClass('hide').attr('id', chartid)
+                        .appendTo('#chart_container');
+                var options = getOptions();
+                options.chart.zoomType = "x";
+                options.xAxis.type = "datetime";
+                options.yAxis.title.text = '可用性百分比(%)';
+                //options.plotOptions.series.pointStart = data.pointStart; 可以在series中设置
+                options.tooltip.pointFormat = '<span style="color:{series.color}">\u25CF</span>' +
+                        ' {series.name}: <b>{point.y: .3f}%</b><br/>';
+
+                var unit = querydata.unit == "years" ? "年" : querydata.unit == "months" ? "月" : "周";
+                var chart_title = "业务系统可用性(%)";
+                options.subtitle.text = querydata.from + "至" + querydata.to + "  (" + unit + ")";
+                for(var i = 0; i < data.series.length; i++){
+                    var name = data.series[i].name;
+                    data.series[i].name = bussiness_name[name];
+                }
+                if(data.series.length == 1){
+                    chart_title = data.series[0].name + chart_title;
+                }else if(data.series.length > 1){
+                    chart_title = data.series[0].name + "等" + data.series.length + chart_title;
+                }
+                options.title.text = chart_title;
+                sub_chart.find('h4').html(chart_title);
+
+                options.series = data.series;
+                var charts = sub_chart.find('#container').highcharts(options, function(chart){
+                    InitialYaxisLabels(chart);
+                });
+            }
+        });
+    });
+
+    $(".change_chart").click(function(){
+        var chartid = $(this).parent().parent().attr('id');
+        $('#alter_chart').attr('chartid', chartid).modal('toggle');
+    });
+
+    $('#alter_chart').on('show', function(){
+        var chartid = $(this).attr('chartid');
+        var chart = $('#' + chartid).find('#container').highcharts();
+        $(this).find(":text[name='title']").val(chart.options.title.text || '');
+        $(this).find(":text[name='subtitle']").val(chart.options.subtitle.text || '');
+        var rr = chart.options.xAxis[0].labels.rotation;
+        $(this).find(":text[name='label_rotation']").val(rr);
+        $(this).find(":text[name='max']").val(chart.yAxis[0].max);
+        $(this).find(":text[name='min']").val(chart.yAxis[0].min);
+
+    });
+
+    $('.alter_chart_save').click(function(){
+        var chartid = $(this).parent().parent().attr('chartid');
+        var chart = $('#' + chartid).find('#container').highcharts();
+        $('#' + chartid).find('h4').html($(this).parent().parent().find(":text[name='title']").val());
+        chart.setTitle({text: $(this).parent().parent().find(":text[name='title']").val()},
+                {text: $(this).parent().parent().find(":text[name='subtitle']").val()}, true);
+
+        chart.xAxis[0].update({
+            labels: {
+                rotation: Number($(this).parent().parent().find(":text[name='label_rotation']").val())
+            }
+        });
+        chart.yAxis[0].update({
+            max: Number($(this).parent().parent().find(":text[name='max']").val()),
+            min: Number($(this).parent().parent().find(":text[name='min']").val())
+        });
+        $(this).parent().parent().modal('hide');
+    });
+
+});
+
+//动态初始化图表Y轴刻度
+function InitialYaxisLabels(chart){
+    //获得数据的最大最小值
+    var max = 100;
+    var min = chart.yAxis[0].dataMin > 99 ? 99 : chart.yAxis[0].dataMin;
+    //根据刻度总个数和最大最小值来确定刻度间隔值tickInterval
+    //var LabelsCount = (6-1);
+    //var tickInterval = (max-min)/LabelsCount;
+    //动态通过update()方法更新
+    chart.yAxis[0].update({
+        //tickInterval: tickInterval,
+        max: max,
+        min: min
+    });
+}
+
+</script>

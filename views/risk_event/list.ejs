@@ -1,0 +1,180 @@
+<%- include ../nheader %>
+<%- include ../querysidebar %>
+<div class="span9">
+    <% if (typeof(error) !== 'undefined' && error) { %>
+    <div class="alert alert-error">
+        <a class="close" data-dismiss="alert" href="#">&times;</a>
+        <strong><%= error %></strong>
+    </div>
+    <% } %>
+    <% if (typeof(success) !== 'undefined' && success) { %>
+    <div class="alert alert-success">
+        <strong><%= success %></strong>
+    </div>
+    <% } else { %>
+    <a href="/risk_event/add" class="btn" >添加事件</a>&nbsp;&nbsp;<a href="/risk_event/show" class="btn" >图表</a>
+    <form method="post" class="form-horizontal" action="/risk_event/list">
+        <div class="control-group">
+            <label class="control-label " for="dtp_input1">from：</label>
+            <div class="controls input-append date form_datetime " data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                <% if (typeof(from) !== 'undefined') { %>
+                <input size="16" type="text" value="<%= from %>" name="from">
+                <% } else { %>
+                <input size="16" type="text" value="" name="from" placeholder="yyyy-mm-dd">
+                <% } %>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <input type="hidden" id="dtp_input1" value="" /><br/>
+        </div>
+        <div class="control-group">
+            <label class="control-label " for="dtp_input2">to：</label>
+            <div class="controls input-append date form_datetime " data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2">
+                <% if (typeof(to) !== 'undefined') { %>
+                <input size="16" type="text" value="<%= to %>" name="to">
+                <% } else { %>
+                <input size="16" type="text" value="" name="to" placeholder="yyyy-mm-dd">
+                <% } %>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <input type="hidden" id="dtp_input2" value="" /><br/>
+        </div>
+        <a href="#" class="btn show_risk_events">查询</a>&nbsp;&nbsp;
+        <a href="#" class="btn show_risk_events_1M">最近一月</a>
+    </form>
+    <% } %>
+
+    <!-- 代码片段 分页控件
+    <div class="span9">
+        <div id="page1" pageCount="" pageNum="" pageSize="" pageLimit="" numberOfPages=""></div>
+    </div> -->
+    <!-- 代码片段 查询结果 -->
+    <div class="span9">
+        <table id="events_table"  class="table order-column table-hover table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="hide">_id</th>
+                    <th>occur_time</th>
+                    <th>duration_time</th>
+                    <th>bussiness</th>
+                    <th>comment</th>
+                    <th>operation</th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+            </tbody>
+
+        </table>
+    </div>
+
+
+</div><!--/span-->
+<%- include ../nfooter %>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        showMeridian: 0
+    });
+
+    $(function(){
+        $(".show_risk_events_1M").click(function(){
+            var from = new Date();
+            from.setMonth(new Date().getMonth() - 1);
+            $("input[name='from']").val(from.Format("yyyy-MM-dd"));
+            $("input[name='to']").val(new Date().Format("yyyy-MM-dd"));
+            $(".show_risk_events").click();
+        });
+
+        $(".show_risk_events").click(function(){
+            $('#events_table').dataTable().fnDestroy();
+            var q = $("form").serializeObject() || {};
+            $.ajax({
+                url : "/risk_event/list",
+                type : "POST",
+                cache : false,
+                dataType : "json",
+                data : q,
+                error : function(jqXHR, textStatus, errorThrown) {
+                    alert('error ' + textStatus + " " + errorThrown);
+                },
+                success : function(data) {
+                    var events = [];
+                    data.eventList.forEach(function(event){
+                        event['operation'] = "<a class='btn btn-link del_events' eid=" + event._id + " >删除</a>&nbsp;" +
+                                "<a class='btn btn-link' href='/risk_event/edit?eid=" + event._id + "' >修改</a>";
+                        events.push(event);
+                    });
+                    //TODO 使用serverside
+                    $('#events_table').DataTable( {
+                        bAutoWidth: true,
+                        bRetrieve: true,
+                        data: events,
+                        columns: [
+                            { data: '_id' },
+                            { data: 'occur_time' },
+                            { data: 'duration_time' },
+                            { data: 'bussiness' },
+                            { data: 'comment' },
+                            { data: 'operation'}
+                        ],
+                        aoColumnDefs: [
+                            { bSearchable: false, bVisible: false, aTargets: 0 }
+                        ],
+                        oLanguage: {
+                            sLengthMenu: "每页显示 _MENU_ 条记录",
+                            sZeroRecords: "抱歉， 没有找到",
+                            sInfo: "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+                            sInfoEmpty: "没有数据",
+                            sInfoFiltered: "(从 _MAX_ 条数据中检索)",
+                            oPaginate: {
+                                sFirst: "首页",
+                                sPrevious: "前一页",
+                                sNext: "后一页",
+                                sLast: "尾页"
+                            },
+                            sZeroRecords: "没有检索到数据",
+                            order: [ 1, "desc" ]
+                        },
+                        aLengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                        bDestroy: true,
+                        initComplete: function () { //绑定删除事件
+                            var api = this.api();
+                            api.$('.del_events').click( function () {
+                                var row = $(this).parent().parent();
+                                if(!confirm('确认删除此条记录？')){
+                                    return;
+                                }
+                                $.ajax({
+                                    url : "/risk_event/remove",
+                                    type : "POST",
+                                    data: {eid: $(this).attr('eid')},
+                                    cache : false,
+                                    dataType : "json",
+                                    error : function(jqXHR, textStatus, errorThrown) {
+                                        alert('error ' + textStatus + " " + errorThrown);
+                                    },
+                                    success : function(data) {
+                                        $('#events_table').DataTable().row(row).remove().draw();
+                                    }
+                                });
+                            } );
+                        }
+                    } );
+
+                }
+            });
+
+        });
+    });
+
+</script>

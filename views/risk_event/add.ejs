@@ -1,0 +1,183 @@
+<%- include ../nheader %>
+<%- include ../querysidebar %>
+<div class="span9">
+    <% if (typeof(error) !== 'undefined' && error) { %>
+    <div class="alert alert-error">
+        <a class="close" data-dismiss="alert" href="#">&times;</a>
+        <strong><%= error %></strong>
+    </div>
+    <% } %>
+    <% if (typeof(success) !== 'undefined' && success) { %>
+    <div class="alert alert-success">
+        <strong><%= success %></strong>
+    </div>
+    <% } %>
+
+    <a href="/risk_event/show" class="btn" >图表</a><a href="/risk_event/list" class="btn" >事件列表</a>
+    <% if (typeof(eid) !== 'undefined') { %>
+    <form method="post" class="form-horizontal" action="/risk_event/edit">
+        <input class="hide" size="16" type="text" value="<%= eid %>" name="eid">
+    <% } else { %>
+    <form method="post" class="form-horizontal" action="/risk_event/add">
+    <% } %>
+        <div class="control-group">
+            <label class="control-label " for="dtp_input1">occurTime：</label>
+            <div class="controls input-append date form_datetime " data-date="" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                <% if (typeof(occur_time) !== 'undefined') { %>
+                <input size="16" type="text" value="<%= occur_time %>" name="occur_time">
+                <% } else { %>
+                <input size="16" type="text" value="" name="occur_time" placeholder="yyyy-mm-dd hh:ii">
+                <% } %>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <input type="hidden" id="dtp_input1" value="" /><br/>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="duration_time">durationTime：</label>
+            <div class="controls">
+                <% if (typeof(duration_time) !== 'undefined') { %>
+                <input type="text" id="duration_time" name="duration_time" placeholder="持续分钟数" value="<%= duration_time %>">
+                <% } else { %>
+                <input type="text" id="duration_time" name="duration_time" placeholder="持续分钟数" value="">
+                <% } %>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="bussiness">bussiness：</label>
+            <div class="controls" id="bussiness">
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="POS"
+                        <% if (typeof(bussiness) !== 'undefined' && bussiness && bussiness.length > 0 && bussiness.indexOf('POS') != -1) { %> checked="checked" <% } %>
+                        > 线下POS
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="ONLINE"
+                            <% if (typeof(bussiness) !== 'undefined' && bussiness && bussiness.length > 0 && bussiness.indexOf('ONLINE') != -1) { %> checked="checked" <% } %>
+                            > 在线支付
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="NONCARD"
+                            <% if (typeof(bussiness) !== 'undefined' && bussiness && bussiness.length > 0 && bussiness.indexOf('NONCARD') != -1) { %> checked="checked" <% } %>
+                            > 非银行卡
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="epos"
+                            <% if (typeof(bussiness) !== 'undefined' && bussiness && bussiness.length > 0 && bussiness.indexOf('epos') != -1) { %> checked="checked" <% } %>
+                            > 航旅epos
+                </label><br/>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="DAIKOU"
+                            <% if (typeof(bussiness) !== 'undefined' && bussiness && bussiness.length > 0 && bussiness.indexOf('DAIKOU') != -1) { %> checked="checked" <% } %>
+                            > 代扣
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="WTJS"
+                            <% if (typeof(bussiness) !== 'undefined' && bussiness && bussiness.length > 0 && bussiness.indexOf('WTJS') != -1) { %> checked="checked" <% } %>
+                            > 委托结算
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="CORE"
+                            <% if (typeof(bussiness) !== 'undefined' && bussiness && bussiness.length > 0 && bussiness.indexOf('CORE') != -1) { %> checked="checked" <% } %>
+                            > 核心平台
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="YJZF"
+                            <% if (typeof(bussiness) !== 'undefined' && bussiness && bussiness.length > 0 && bussiness.indexOf('YJZF') != -1) { %> checked="checked" <% } %>
+                            > 一键支付
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="bussiness" value="SYS"
+                            <% if (typeof(bussiness) !== 'undefined' && bussiness && bussiness.length > 0 && bussiness.indexOf('SYS') != -1) { %> checked="checked" <% } %>
+                            > 系统运维
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="select_all_bussiness" onclick=""> 所有业务
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="comment">comment：</label>
+            <div class="controls">
+                <% if (typeof(comment) !== 'undefined') { %>
+                <textarea rows="3" name="comment" id="comment" ><%= comment %></textarea>
+                <% } else { %>
+                <textarea rows="3" name="comment" id="comment"></textarea>
+                <% } %>
+            </div>
+        </div>
+        <% if (typeof(eid) !== 'undefined') { %>
+        <input type="submit" value="修改" class="btn"/>
+        <% } else { %>
+        <input type="submit" value="添加" class="btn"/>
+        <% } %>
+    </form>
+
+    <table class="table">
+        <tr>
+            <td >
+                <input id='file' type="file" accept="text/csv">
+                <input id='file_upload' type="button" class="btn" value="导入csv文件">
+                <a href="/riskevents.csv" class="btn" >导出csv模板文件</a>
+            </td>
+        </tr>
+    </table>
+
+
+
+</div><!--/span-->
+<%- include ../nfooter %>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 0 //上午下午
+    });
+
+    $(function(){
+        $('#file').unbind('change');
+        $('#file').bind('change', function(){
+            var filepath = $(this).val();
+            var filesuffix = filepath.substring(filepath.lastIndexOf('.')+1,filepath.length);
+            if(filesuffix != 'csv'){
+                alert("只能导入CSV文件");
+                $(this).val(null);
+            }
+        });
+        $('#file_upload').unbind('click');
+        $('#file_upload').bind('click',function(){
+            var data = new FormData();
+            var files = $('#file')[0].files;
+
+            if (files && files.length > 0) {
+                data.append('csvfile',files[0]);
+            } else {
+                return;
+            }
+
+            $.ajax({
+                url: '/risk_event/import',
+                cache: false,
+                type: 'post',
+                //dataType: 'json',
+                data : data,
+                contentType: false,
+                processData: false,
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error ' + textStatus + " " + errorThrown);
+                },
+                success : function (data) {
+                    alert(data.message);
+                    $('#file').val(null);
+                }
+            });
+        });
+
+    });
+
+</script>

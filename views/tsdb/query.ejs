@@ -1,0 +1,318 @@
+<%- include ../nheader %>
+<%- include ../querysidebar %>
+<style>
+    .ui-autocomplete-loading {
+        background: white url("/jquery-ui-1.11.0/images/ui-anim_basic_16x16.gif") right center no-repeat;
+    }
+</style>
+<div class="span9">
+<form method="post" class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label " for="dtp_input1">start：</label>
+        <div class="controls input-append date form_datetime " data-date="" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+            <input name="start" size="16" type="text" value="" class="span2" placeholder="YYYY-MM-DD HH:mm">
+            <span class="add-on"><i class="icon-remove"></i></span>s
+            <span class="add-on"><i class="icon-th"></i></span>
+        </div>
+        <input type="hidden" id="dtp_input1" value="" /><br/>
+    </div>
+    <div class="control-group">
+        <label class="control-label " for="dtp_input2">end：</label>
+        <div class="input-append date form_datetime controls " data-date="" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input2">
+            <input name="end" size="16" type="text" value="" class="span2" placeholder="YYYY-MM-DD HH:mm">
+            <span class="add-on"><i class="icon-remove"></i></span>
+            <span class="add-on"><i class="icon-th"></i></span>
+        </div>
+        <input type="hidden" id="dtp_input2" value="" /><br/>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="metric">指标名：</label>
+        <div class="controls">
+            <input type="text" id="metric" required auto_query_type="metrics" name="metric" data-provide="typeahead" placeholder="metric" autocomplete="off">
+        </div>
+    </div>
+    <div class="control-group" id="tags_group">
+        <label class="control-label" for="metric">Tags：</label>
+    </div>
+    <div class="control-group">
+        <label class="control-label " for="slt_agg" >aggregator：</label>
+        <div class="controls">
+            <select name="aggregator" id="slt_agg" class="span1">
+            </select>
+        </div>
+    </div>
+    <div class="control-group" >
+        <label class="control-label">
+            <input type="checkbox" id="downsample"  > downsample：
+        </label>
+        <div class="controls controls-row">
+            <input class="span1" type="text" name="downsample" id="slt_downsample_time" value="1d" disabled>
+            <select id="slt_downsample_agg" name="downsample" class="span1" disabled>
+            </select>
+        </div>
+    </div>
+
+    <a href="#" class="btn btn-primary slt_query">查询</a>
+</form>
+
+<div id="container" style="min-width:700px;height:400px"></div>
+
+</div><!--/span-->
+<div class="controls controls-row tsd-tag-block hide">
+    <input type="text" class="input-small tsd-tagk" auto_query_type="tagk" name="tagk" data-provide="typeahead" placeholder="tagk" autocomplete="off"> =
+    <input type="text" class="input-small tsd-tagv" auto_query_type="tagv" name="tagv" data-provide="typeahead" placeholder="tagv" autocomplete="off">
+</div>
+<%- include ../footer %>
+<script src="/javascripts/underscore-min.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.slt_query').click(function(){
+            var query_obj = getQueryObj();
+            $.ajax({
+                url : "/tsdb/api/query",
+                type : "POST",
+                cache : false,
+                dataType : "json",
+                data : {
+                    "query_obj": query_obj
+                },
+                error : function(jqXHR, textStatus, errorThrown) {
+                    alert('error ' + textStatus + " " + errorThrown);
+                },
+                success : function(data){
+                    for(var i = 0; i < data.result.length; i++){
+                        data.result[i].dps = _.map(data.result[i].dps, function(value, key){
+                            return [Number(key)*1000, value];
+                        });
+                        var key = data.result[i].dps[data.result[i].dps.length - 1][0] - data.result[i].dps[data.result[i].dps.length - 2][0];
+                        data.result[i].dps.push([key, null]);
+                    }
+
+                    var options = getStockOptions();
+                    options.navigator = {
+                        "adaptToUpdatedData": false,
+                        "series" : {
+                            "data" : data.result[0].dps
+                        }
+                    };
+                    options['scrollbar'] = {
+                        liveRedraw: false
+                    };
+                    options.chart.zoomType = 'x';
+                    options.xAxis['events'] = {
+                        afterSetExtremes : afterSetExtremes
+                    };
+                    options.legend = {
+                        enabled: false,
+                        padding: 2,
+                        layout: "horizontal",
+                        margin: 5,
+                        verticalAlign: 'bottom',
+                        borderWidth: 1
+                    };
+                    options.title.text = data.result[0].metric;
+                    options.xAxis['minRange'] = 60 * 1000;
+                    for(var i = 0; i < data.result.length; i++){
+                        options.series.push({
+                            "name": data.result[i].metric,
+                            "data": data.result[i].dps
+                        });
+                    }
+                    $('#container').highcharts('StockChart', options, function(chart){
+                        InitialYaxisLabels(chart);
+                    });
+
+                }
+            });
+
+        });
+
+        function afterSetExtremes(e) {
+            var url,
+                    currentExtremes = this.getExtremes(),
+                    range = e.max - e.min;
+            var chart = $('#container').highcharts();
+            chart.showLoading('Loading data from server...');
+
+            var query_obj = getQueryObj();
+            query_obj.start = Math.round(e.min/1000);
+            query_obj.end = Math.round(e.max/1000);
+
+            $.ajax({
+                url : "/tsdb/api/query",
+                type : "POST",
+                cache : false,
+                dataType : "json",
+                data : {
+                    "query_obj": query_obj
+                },
+                error : function(jqXHR, textStatus, errorThrown) {
+                    alert('error ' + textStatus + " " + errorThrown);
+                },
+                success : function(data){
+                    for(var i = 0; i < data.result.length; i++){
+                        data.result[i].dps = _.map(data.result[i].dps, function(value, key){
+                            return [Number(key)*1000, value];
+                        });
+                        chart.series[i].setData(data.result[0].dps);
+                    }
+                    chart.hideLoading();
+                }
+            });
+        }
+
+        function getQueryObj(){
+            var query_data = $('form').serializeObject();
+            var tags = _.object(query_data.tagk, query_data.tagv);
+            delete tags[''];
+            var downsample = query_data.downsample;
+            if(downsample && downsample.length){
+                downsample = downsample[0] + '-' + downsample[1];
+            }
+            if(! (query_data.start && query_data.end && query_data.metric && query_data.aggregator)){
+                return;
+            }
+            var subQuery = {
+                "metric": query_data.metric,
+                "aggregator": query_data.aggregator,
+                "downsample": downsample || null,
+                "tags": tags
+            };
+            var query_obj = {
+                "start": GetTime(query_data.start),
+                "end": GetTime(query_data.end),
+                "queries": new Array()
+            };
+            query_obj.queries.push(subQuery);
+            return query_obj;
+        }
+
+        //动态初始化图表Y轴刻度
+        function InitialYaxisLabels(chart){
+            //获得数据的最大最小值
+            var min = chart.yAxis[0].dataMin > 0 ? 0 : chart.yAxis[0].dataMin;
+            //根据刻度总个数和最大最小值来确定刻度间隔值tickInterval
+            //var LabelsCount = (6-1);
+            //var tickInterval = (max-min)/LabelsCount;
+            //动态通过update()方法更新
+            chart.yAxis[0].update({
+                //tickInterval: tickInterval,
+                min: min
+            });
+        }
+
+        var ta_option = {
+            source: function(query, process){
+                var target = this.$element;
+                $.getJSON( "/tsdb/api/suggest", {
+                    type: $(target).attr('auto_query_type'),
+                    q: query
+                }, function(data){
+                    process(data);
+                    if(!data.length){
+                        $(target).val($(target).val().substring(0,$(target).val().length-1));
+                        $(target).typeahead('show');
+                    }
+                });
+            },
+            items: 10,
+            minLength: 1
+        }
+
+        $('.tsd-tag-block.hide > input').blur(function(){
+
+            var div_parent = $(this).parent().parent();
+
+            if(!$(this).val() && !$(this).siblings('input').val()){
+                if($(this).parent().next().length)
+                    $(this).parent().remove();
+            }else if(!$(this).parent().next().length){
+                $('.tsd-tag-block.hide').clone(true).removeClass('hide')
+                        .insertAfter($(this).parent()).children('input').typeahead(ta_option);
+            }
+            var divs = $(div_parent).children('div');
+            for(var i = 0; i < divs.length; i++){
+                if($(divs[i]).children('.icon-trash').length){
+                    $(divs[i]).children('.icon-trash').remove();
+                }
+                if(i != 0 && i != (divs.length - 1)){
+                    $("<i class=\"icon-trash\"></i>").appendTo(divs[i]).tooltip({
+                        placement: "right",
+                        title: "remove"
+                    }).bind('click', function(){
+                                $(this).parent().remove();
+                            });
+                }
+            }
+        });
+
+        $('#metric').typeahead(ta_option);
+        $('.tsd-tag-block.hide').clone(true).removeClass('hide').appendTo($('#tags_group')).children('input').typeahead(ta_option);
+        $.getJSON( "/tsdb/api/aggregators", function(data){
+            for(var i = 0; i < data.length; i++){
+                $('#slt_agg').append("<option value='" + data[i] + "'>" + data[i] + "</option>");
+                $('#slt_downsample_agg').append("<option value='" + data[i] + "'>" + data[i] + "</option>");
+            }
+        });
+
+        $('#downsample').click(function(){
+            if($(this).attr('checked') == 'checked'){
+                $(this).parent().siblings().children().removeAttr('disabled');
+            }else{
+                $(this).parent().siblings().children().attr('disabled', 'disabled');
+            }
+        });
+
+        //使用bootstrap typeahead 此方式不用了
+        /**
+         *
+        $('.tsd-tag-block > input').autocomplete({
+            source: function(request, response){
+                $.getJSON( "/tsdb/api/suggest", {
+                    type: this.element.attr('auto_query_type'),
+                    q: request.term
+                }, response );
+            },
+            minLength: 1,
+            delay: 500,
+            autoFocus: true,
+            open: function() {
+                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+            }
+        });
+         */
+        $('.form_datetime').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            viewSelect: 2,
+            forceParse: 0,
+            showMeridian: 0 //上午下午
+        });
+
+        $(".btn_chart_type").click(function(){
+            var type = $(this).val();
+            var hchart = $("#container").highcharts();
+            for(var i = 0; i < hchart.series.length; i++) {
+                if(type == "step"){
+                    //阶梯图需要的type为line
+                    hchart.series[i].update({
+                        type: "line",
+                        step: true
+                    });
+                } else{
+                    hchart.series[i].update({
+                        type: type,
+                        step: false
+                    });
+                }
+            }
+        });
+    })
+</script>

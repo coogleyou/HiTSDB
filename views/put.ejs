@@ -1,0 +1,14 @@
+<%- include nheader %>
+<div class="col-xs-12 col-sm-9">
+<form method="post">
+    metric：<input type="text" name="metric"/><br />
+    timestmp：  <input type="text" name="timestmp"/><br />
+    value：  <input type="text" name="value"/><br />
+    tags：&nbsp;&nbsp;  tagk:<input type="text" name="tags.tagk"/> &nbsp;&nbsp;&nbsp;&nbsp;
+            tagv:<input type="text" name="tags.tagv"/><br />
+    <input type="submit" value="导入数据"/>
+</form>
+<div id="container" style="min-width:700px;height:400px"></div>
+</div><!--/span-->
+<%- include nsidebarr %>
+<%- include nfooter %>
